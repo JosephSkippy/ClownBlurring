@@ -14,6 +14,25 @@ Initial iteration performance as following.
 |-----------|-----------------------------------|-------------------------------------|-------------------------------|-------|---------------|------------------|-----------------------|--------------------------|
 | 1         | 171                               | 34                                  | 23                            | 100   | 0.784         | 0.594            | 0.815                 | 0.611                    |
 
+## Loss Curve
+
+The loss curve shows that the model training loss is reducing however the validation loss is oscillating and does not reduce. This suggest that the model is overfitting.
+
+For handling oscillation, we can reduce the *learning rate* as well as increased the *batch size*
+
+For handling overfitting, we should increase *more data* and add *dropout*
+
+<img src="results/loss.png" width="600" height="250">
+
+##  Key Hyperparameter
+
+1. **epochs**: 100
+2. **batch**: 16
+3. **imgsz**: 256
+4. **Optimizer**: AdamW
+5. **Learning Rate (lr)**: 0.002
+6. **Momentum**: 0.9
+7. **dropout**: 0.0
 
 ## Example where Image
 
