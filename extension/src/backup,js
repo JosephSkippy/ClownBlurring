@@ -1,0 +1,65 @@
+
+//https://github.com/hugozanini/TFJS-object-detection
+//https://blog.tensorflow.org/2021/01/custom-object-detection-in-browser.html
+
+import * as tf from '@tensorflow/tfjs';
+import { loadGraphModel } from '@tensorflow/tfjs-converter';
+
+const TEN_SECONDS_IN_MS = 10000;
+
+class InstanceSegmentation {
+  constructor() {
+    this.loadModel();
+  }
+
+  async loadModel() {
+    console.log("Loading model...");
+    try {
+      let json = chrome.runtime.getURL("model/model.json");
+      chrome.storage.local.set({ model: json });
+      this.model = await loadGraphModel(json);
+      console.log("Model loaded successfully");
+    } catch (e) {
+      console.error("Unable to load model", e);
+    }
+  }
+}
+
+function 
+
+
+console.log("Background script running");
+
+const instanceSegmentation = new InstanceSegmentation();
+
+// Listen for messages from the content script or popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.msg === "image") {
+
+
+    let returnMessage = {msg: "test_123"};
+    chrome.tabs.sendMessage(sender.tab.id, returnMessage);
+
+
+
+   } else if (request.msg === "toggle_background") {
+    if (request.enabled) {
+      console.log("Background script enabled");
+      // Start any necessary background tasks
+    } else {
+      console.log("Background script disabled");
+      // Stop any necessary background tasks
+    }
+  }
+});
+
+// Check the initial state from Chrome storage
+chrome.storage.sync.get(['backgroundEnabled'], function(result) {
+  if (result.backgroundEnabled) {
+    console.log("Background script is initially enabled");
+    // Start any necessary background tasks
+  } else {
+    console.log("Background script is initially disabled");
+    // Stop any necessary background tasks
+  }
+});
